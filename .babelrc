@@ -1,0 +1,51 @@
+{
+  "presets": [
+    ["@babel/env", {
+      "targets": {
+        "browsers": "last 2 Chrome versions"
+      }
+    }],
+    "@babel/react"
+  ],
+  "plugins": [
+    "@babel/plugin-external-helpers",
+    "css-to-js",
+    "@babel/transform-runtime",
+    ["@babel/plugin-proposal-object-rest-spread"],
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "webpack-config": "./webpack-config"
+      }
+    }],
+    ["lodash", {
+      "id": ["ramda", "ramda-adjunct", "recompose", "srghma-react-helpers"]
+    }],
+    ["direct-import", { "modules": ["@material-ui/core"] }]
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        ["@babel/react", {
+          "development": true
+        }],
+      ],
+      "plugins": [ "react-hot-loader/babel" ]
+    },
+    "production": {
+      "presets": [
+        ["@babel/env", {
+          "targets": {
+            "browsers": "last 2 Chrome versions",
+          },
+          "forceAllTransforms": true
+        }],
+      ],
+      "plugins": [
+        // TODO: fix babel-preset-react-optimize to support babel 7
+        "@babel/plugin-transform-react-constant-elements",
+        "@babel/plugin-transform-react-inline-elements"
+      ]
+    }
+  }
+}
